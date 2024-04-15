@@ -12,8 +12,12 @@ contract ProtoCoin {
 
     mapping (address => uint256) private _balances;
 
+    constructor() {
+        _balances[msg.sender] = totalSupply;
+    }
+
     function balanceOf(address _owner) public view returns (uint256 balance) {
         return _balances[_owner];
     }
-    
+
 }
