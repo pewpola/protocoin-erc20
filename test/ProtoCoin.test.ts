@@ -24,4 +24,16 @@ describe("ProtoCoin", function () {
     const symbol = await protoCoin.symbol();
     expect(symbol).to.equal("PRC");
   });
+
+  it("Should have correct decimals", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const decimals = await protoCoin.decimals();
+    expect(decimals).to.equal(18);
+  });
+
+  it("Should have correct total supply", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const totalSupply = await protoCoin.totalSupply();
+    expect(totalSupply).to.equal(1000n * 10n ** 18n);
+  });
 });
