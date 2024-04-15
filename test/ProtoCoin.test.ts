@@ -13,9 +13,15 @@ describe("ProtoCoin", function () {
     return { protoCoin, owner, otherAccount };
   }
 
-  it("Should Test", async function () {
+  it("Should have correct name", async function () {
     const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const name = await protoCoin.name();
     expect(name).to.equal("ProtoCoin");
+  });
+
+  it("Should have corrent symbol", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const symbol = await protoCoin.symbol();
+    expect(symbol).to.equal("PRC");
   });
 });
