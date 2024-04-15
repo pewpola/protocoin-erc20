@@ -15,7 +15,7 @@ describe("ProtoCoin", function () {
 
   it("Should Test", async function () {
     const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
-
-    expect(true).to.equal(true);
+    const name = await protoCoin.name();
+    expect(name).to.equal("ProtoCoin");
   });
 });
