@@ -9,4 +9,11 @@ contract ProtoCoin {
 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+
+    mapping (address => uint256) private _balances;
+
+    function balanceOf(address _owner) public view returns (uint256 balance) {
+        return _balances[_owner];
+    }
+    
 }
