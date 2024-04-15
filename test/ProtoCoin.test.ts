@@ -36,4 +36,10 @@ describe("ProtoCoin", function () {
     const totalSupply = await protoCoin.totalSupply();
     expect(totalSupply).to.equal(1000n * 10n ** 18n);
   });
+
+  it("Should get balance", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const balance = await protoCoin.balanceOf(owner.address);
+    expect(balance).to.equal(1000n * 10n ** 18n);
+  });
 });
