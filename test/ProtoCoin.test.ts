@@ -8,7 +8,7 @@ describe("ProtoCoin", function () {
     const [owner, otherAccount] = await hre.ethers.getSigners();
 
     const ProtoCoin = await hre.ethers.getContractFactory("ProtoCoin");
-    const protoCoin = await ProtoCoin.deploy()
+    const protoCoin = await ProtoCoin.deploy();
 
     return { protoCoin, owner, otherAccount };
   }
@@ -38,8 +38,24 @@ describe("ProtoCoin", function () {
   });
 
   it("Should get balance", async function () {
-    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);7
     const balance = await protoCoin.balanceOf(owner.address);
     expect(balance).to.equal(1000n * 10n ** 18n);
+  });
+
+  it("Should transfer", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const ownerBalanceBeforeTransfer = await protoCoin.balanceOf(owner.address);
+    const otherAccountBalanceBeforeTransfer = await protoCoin.balanceOf(otherAccount.address);
+
+    await protoCoin.transfer(otherAccount.address, 5n);
+
+    const ownerBalanceAfterTransfer = await protoCoin.balanceOf(owner.address);
+    const otherAccountBalanceAfterTransfer = await protoCoin.balanceOf(otherAccount.address);
+
+    expect(ownerBalanceBeforeTransfer).to.equal(1000n * 10n ** 18n);
+    expect(ownerBalanceAfterTransfer).to.equal((1000n * 10n ** 18n) - 5n);
+    expect(otherAccountBalanceBeforeTransfer).to.equal(0);
+    expect(otherAccountBalanceAfterTransfer).to.equal(5);
   });
 });
