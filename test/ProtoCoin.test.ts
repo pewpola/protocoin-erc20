@@ -38,7 +38,7 @@ describe("ProtoCoin", function () {
   });
 
   it("Should get balance", async function () {
-    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);7
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
     const balance = await protoCoin.balanceOf(owner.address);
     expect(balance).to.equal(1000n * 10n ** 18n);
   });
@@ -57,5 +57,11 @@ describe("ProtoCoin", function () {
     expect(ownerBalanceAfterTransfer).to.equal((1000n * 10n ** 18n) - 5n);
     expect(otherAccountBalanceBeforeTransfer).to.equal(0);
     expect(otherAccountBalanceAfterTransfer).to.equal(5);
+  });
+
+  it("Should NOT transfer", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const instance = protoCoin.connect(otherAccount)
+    await expect(instance.transfer(owner.address, 1n)).to.be.revertedWith("Insufficient balance");
   });
 });
