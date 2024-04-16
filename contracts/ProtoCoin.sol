@@ -11,6 +11,7 @@ contract ProtoCoin {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 
     mapping (address => uint256) private _balances;
+    mapping (address => mapping (address => uint256)) private _allowances;
 
     constructor() {
         _balances[msg.sender] = totalSupply;
