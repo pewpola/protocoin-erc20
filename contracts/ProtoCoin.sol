@@ -39,4 +39,8 @@ contract ProtoCoin {
 
         return true;
     }
+
+    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
+        return _allowances[_owner][_spender];
+    }
 }
