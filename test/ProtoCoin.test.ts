@@ -64,4 +64,12 @@ describe("ProtoCoin", function () {
     const instance = protoCoin.connect(otherAccount)
     await expect(instance.transfer(owner.address, 1n)).to.be.revertedWith("Insufficient balance");
   });
+
+  it("Should approve", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    await protoCoin.approve(otherAccount.address, 1n);
+
+    const value = await protoCoin.allowance(owner.address, otherAccount.address);
+    expect(value).to.equal(1n);
+  });
 });
