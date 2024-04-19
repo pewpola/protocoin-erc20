@@ -50,6 +50,7 @@ contract ProtoCoin {
 
         _balances[_from] -= _value;
         _allowances[_from][msg.sender] -= _value;
+        _balances[_to] += _value;
 
         emit Transfer(_from, _to, _value);
 
