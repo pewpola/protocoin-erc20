@@ -93,4 +93,10 @@ describe("ProtoCoin", function () {
     expect(otherAccountBalanceAfterTransfer).to.equal(5);
     expect(allowance).to.equal(5);
   });
+
+  it("Should NOT transfer from (insufficient balance)", async function () {
+    const { protoCoin, owner, otherAccount } = await loadFixture(deployFixture);
+    const instance = protoCoin.connect(otherAccount)
+    await expect(instance.transferFrom(otherAccount.address, owner.address, 1n)).to.be.revertedWith("Insufficient balance");
+  });
 });
